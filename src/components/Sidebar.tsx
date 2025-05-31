@@ -33,7 +33,8 @@ const navigationItems = [
 ];
 
 export function Sidebar({ datasets, activeDataset, setActiveDataset, activeView, setActiveView }) {
-  const { collapsed } = useSidebar();
+  const { state } = useSidebar();
+  const collapsed = state === 'collapsed';
 
   return (
     <UISidebar className={cn("border-r border-gray-200 bg-white/95 backdrop-blur-sm", collapsed ? "w-16" : "w-64")}>

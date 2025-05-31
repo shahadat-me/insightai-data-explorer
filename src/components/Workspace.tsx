@@ -24,6 +24,13 @@ import {
 
 const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#06B6D4'];
 
+interface StatsSummary {
+  min: number;
+  max: number;
+  avg: number;
+  count: number;
+}
+
 export function Workspace({ dataset }) {
   const [selectedChart, setSelectedChart] = useState('bar');
 
@@ -60,7 +67,7 @@ export function Workspace({ dataset }) {
   const dataStats = useMemo(() => {
     if (!dataset?.data) return {};
     
-    const stats = {};
+    const stats: Record<string, StatsSummary> = {};
     numericColumns.forEach(col => {
       const values = dataset.data.map(row => parseFloat(row[col])).filter(v => !isNaN(v));
       if (values.length > 0) {

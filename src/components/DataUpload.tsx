@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback } from 'react';
 import { Upload, FileText, Database, Globe } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
@@ -52,7 +51,12 @@ export function DataUpload({ onDatasetUpload }) {
     try {
       const reader = new FileReader();
       reader.onload = (e) => {
-        const content = e.target.result;
+        const result = e.target?.result;
+        if (typeof result !== 'string') {
+          throw new Error('Failed to read file as text');
+        }
+        
+        const content = result;
         let data = [];
         let type = 'unknown';
 
